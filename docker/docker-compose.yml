@@ -1,0 +1,16 @@
+openvidu-server-kms:
+    image: openvidu/openvidu-server-kms:2.11.0
+    ports:
+      - 4443:4443
+      - 8443:8443
+    environment:
+      - KMS_STUN_IP=stun.l.google.com
+      - KMS_STUN_PORT=19302
+      - openvidu.secret=MY_SECRET
+      - openvidu.publicurl=https://localhost:4443
+
+test-app:
+   build: ./testapp
+   ports: 
+      - 80:80
+      - 443:443
