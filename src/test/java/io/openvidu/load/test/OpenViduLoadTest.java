@@ -728,10 +728,12 @@ public class OpenViduLoadTest {
 			@Override
 			public void run() {
 				HashMap<String, Integer> assert_stats = browser.getManager().gatherEventsAndStats(browser.getUserId(), gatheringRoundCount);
-				if (assert_stats.containsKey("jitter")){
+				if (assert_stats != null && assert_stats.containsKey("jitter")){
+					if(assert_stats.get("jitter")<= 100) log.error("too much jitter");
 					Assert.assertTrue("too much jitter", assert_stats.get("jitter")<= 100);
 				}
-				if (assert_stats.containsKey("delay")){
+				if (assert_stats!=null && assert_stats.containsKey("delay")){
+					if(assert_stats.get("delay")<= 100) log.error("too much delay");
 					Assert.assertTrue("too much delay", assert_stats.get("delay")<= 150);
 				}
 				if (browser.getSessionId().equals(lastSession)) {
